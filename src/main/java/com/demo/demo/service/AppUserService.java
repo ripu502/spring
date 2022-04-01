@@ -13,4 +13,6 @@ public interface AppUserService {
     void addRoleToUser(Role roleName, String username);
 
     List<AppUser> getAllAppUsers();
+
+    void addRequestForRole(Role roleName, String username);
 }

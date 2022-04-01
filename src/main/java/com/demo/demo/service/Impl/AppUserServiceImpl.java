@@ -29,4 +29,9 @@ public class AppUserServiceImpl implements AppUserService {
     public List<AppUser> getAllAppUsers() {
         return null;
     }
+
+    @Override
+    public void addRequestForRole(Role roleName, String username) {
+
+    }
 }

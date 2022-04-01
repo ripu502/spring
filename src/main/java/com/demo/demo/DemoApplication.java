@@ -27,6 +27,7 @@ public class DemoApplication {
 	 * 	12 Deploying with docker
 	 * 	13 images and file handling
 	 * 	14 logging to file
+	 * 	13 Unit testing and coverage
 	 */
 
 	/**
@@ -43,6 +44,12 @@ public class DemoApplication {
 	 * cart buy browse
 	 *
 	 *
+	 */
+
+	/**
+	 * Closing on Day 1:
+	 * reading https://www.baeldung.com/spring-boot-h2-database
+	 * https://github.com/ripu502-deloitte/bookMyshow
 	 */
 
 }
