@@ -1,8 +1,8 @@
 package com.demo.demo.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class AppUserCreateRequest {
     private String name;
     private String username;
