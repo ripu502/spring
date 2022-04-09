@@ -2,6 +2,8 @@ package com.demo.demo.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.demo.demo.dto.LoginDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,15 +33,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try
         {
-            System.out.println(request.getReader().lines().reduce("", String::concat));
+            String in = request.getReader().lines().reduce("", String::concat);
+            LoginDTO req = new ObjectMapper().readValue(in, LoginDTO.class);
+            String username = req.getUsername();
+            String password = req.getPassword();
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        System.out.println(username + "\n" + password);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("ripu502", "1234");
-        return authenticationManager.authenticate(authenticationToken);
+        return null;
     }
 
 
