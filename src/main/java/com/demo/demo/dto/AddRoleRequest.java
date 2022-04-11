@@ -8,6 +8,5 @@ import javax.persistence.Enumerated;
 
 @Data
 public class AddRoleRequest {
-    private String username;
-    private Role role;
+    private String role;
 }

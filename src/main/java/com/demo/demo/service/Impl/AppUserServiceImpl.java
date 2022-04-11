@@ -1,14 +1,15 @@
 package com.demo.demo.service.Impl;
 
 import com.demo.demo.dao.AppUserRepo;
+import com.demo.demo.dao.RoleRequestRepo;
 import com.demo.demo.dto.AppUserCreateRequest;
 import com.demo.demo.entity.AppUser;
 import com.demo.demo.entity.Product;
 import com.demo.demo.entity.Role;
+import com.demo.demo.entity.RoleRequest;
 import com.demo.demo.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Autowired
     private AppUserRepo appUserRepo;
+
+    @Autowired
+    private RoleRequestRepo roleRequestRepo;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -65,7 +70,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addRoleToUser(Role roleName, String username) {
+    public void addRoleToUser(String roleName, String username) {
 
     }
 
@@ -76,7 +81,18 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addRequestForRole(Role roleName, String username) {
+    public void addRequestForRole(String roleName, String username) {
+        Role role = Role.valueOf(Role.class, roleName);
+        RoleRequest newRoleRequest = new RoleRequest();
+        newRoleRequest.setRole(role);
+        newRoleRequest.setUsername(username);
+        roleRequestRepo.save(newRoleRequest);
     }
+
+    @Override
+    public List<RoleRequest> getRequestForRoles() {
+        return roleRequestRepo.findAll();
+    }
+
 
 }

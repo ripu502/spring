@@ -38,6 +38,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         if(request.getServletPath().equals("/login"))
         {
             filterChain.doFilter(request, response);
+        }else if(request.getServletPath().equals("/h2-console/**"))
+        {
+            filterChain.doFilter(request, response);
         }
         else{
             String authHeader = request.getHeader(AUTHORIZATION);

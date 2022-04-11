@@ -3,6 +3,7 @@ package com.demo.demo.controller;
 import com.demo.demo.dto.AddRoleRequest;
 import com.demo.demo.dto.AppUserCreateRequest;
 import com.demo.demo.entity.AppUser;
+import com.demo.demo.entity.RoleRequest;
 import com.demo.demo.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -38,11 +40,15 @@ public class AppUserController {
     }
 
     @PostMapping("/wgr")
-    public ResponseEntity<String> addRoleToAppUser(@RequestBody AddRoleRequest addRoleRequest){
-        appUserService.addRoleToUser(addRoleRequest.getRole(), addRoleRequest.getUsername());
+    public ResponseEntity<String> addRoleToAppUser(Principal principal, @RequestBody AddRoleRequest addRoleRequest){
+        appUserService.addRoleToUser(addRoleRequest.getRole(), principal.getName());
         return new ResponseEntity<>("Added Role", HttpStatus.CREATED);
     }
 
+    /**
+     * Temp routes for the testing
+     * @return
+     */
     @GetMapping @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<AppUser>> getAllAppUser()
     {
@@ -50,10 +56,24 @@ public class AppUserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Raising request for the role
+     * @param principal
+     * @param addRoleRequest
+     * @return
+     */
     @PostMapping("/request/role")
-    public ResponseEntity<String> requestForRole(@RequestBody AddRoleRequest addRoleRequest)
+    public ResponseEntity<String> requestForRole(Principal principal,
+                                                 @RequestBody AddRoleRequest addRoleRequest)
     {
-        appUserService.addRequestForRole(addRoleRequest.getRole(), addRoleRequest.getUsername());
+        appUserService.addRequestForRole(addRoleRequest.getRole(), principal.getName());
         return new ResponseEntity<>("Requested", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/request/role")
+    public ResponseEntity<List<RoleRequest>> requestsForRole()
+    {
+        List<RoleRequest> res = appUserService.getRequestForRoles();
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
