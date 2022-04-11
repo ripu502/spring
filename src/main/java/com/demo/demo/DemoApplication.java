@@ -31,22 +31,25 @@ public class DemoApplication {
 	/**
 	 * This is the first backend repo for the spring boot backend
 	 * point to be covered will be
-	 * 	1. CRUD API
-	 * 	2. JWT Security
-	 * 	3. All mapping
-	 * 	4. DATABASE - Transaction, native Queries, Cache
-	 * 	5. How to move to the microservice Architecture
-	 * 	6. JWT with cookie, http only
-	 * 	7. logging
+	 * 	1. CRUD API - done
+	 * 	2. JWT Security - done https://youtu.be/VVn9OG9nfH0?t=6734
+	 * 	3. All mapping- done REQUIRE revisit
+	 * 	4. DATABASE - Transaction, native Queries, Cache - done REQUIRE REVISIT
+	 * 	7. logging - done
+	 *
 	 * 	8. Global exception handling
+	 * 	13 Unit testing and coverage
+	 * 	5. How to move to the microservice Architecture
+	 * 	15. Making documentation if any code snippets
+	 * 	6. JWT with cookie, http only
+	 * 	14. how to make the heirercy level role like admin can access all the customer level routes
+	 * 	12 Deploying with docker
+	 *
 	 * 	9. Emailing and otp handling
 	 * 	10. OAuth2 SSO and all
 	 * 	11. multi tenent
-	 * 	12 Deploying with docker
 	 * 	13 images and file handling
 	 * 	14 logging to file
-	 * 	13 Unit testing and coverage
-	 * 	14. how to make the heirercy level role like admin can access all the customer level routes
 	 */
 
 	/**
