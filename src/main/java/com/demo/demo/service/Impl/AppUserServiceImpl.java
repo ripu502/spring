@@ -53,7 +53,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         List<Product> productList = new ArrayList<>();
 
         AppUser user = new AppUser();
-
+        user.setName(appUserReq.getName());
         user.setUsername(appUserReq.getUsername());
         user.setPassword(passwordEncoder.encode(appUserReq.getPassword()));
         user.setRoleSet(roleSet);

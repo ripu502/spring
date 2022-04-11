@@ -25,14 +25,19 @@ public class AppUserController {
     @Autowired
     private AppUserService appUserService;
 
-    @PostMapping("/wgth")
+    /**
+     * Register new user to the application with customer role
+     * @param appUserCreateRequest
+     * @return
+     */
+    @PostMapping
     public ResponseEntity<String> createUser(@RequestBody AppUserCreateRequest appUserCreateRequest)
     {
         appUserService.createUser(appUserCreateRequest);
         return new ResponseEntity<>("created", HttpStatus.CREATED);
     }
 
-    @PostMapping
+    @PostMapping("/wgr")
     public ResponseEntity<String> addRoleToAppUser(@RequestBody AddRoleRequest addRoleRequest){
         appUserService.addRoleToUser(addRoleRequest.getRole(), addRoleRequest.getUsername());
         return new ResponseEntity<>("Added Role", HttpStatus.CREATED);
