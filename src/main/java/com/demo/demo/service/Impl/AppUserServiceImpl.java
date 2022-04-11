@@ -71,7 +71,8 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public List<AppUser> getAllAppUsers() {
-        return null;
+        List<AppUser> users = appUserRepo.findAll();
+        return users;
     }
 
     @Override

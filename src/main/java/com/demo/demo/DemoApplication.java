@@ -46,6 +46,7 @@ public class DemoApplication {
 	 * 	13 images and file handling
 	 * 	14 logging to file
 	 * 	13 Unit testing and coverage
+	 * 	14. how to make the heirercy level role like admin can access all the customer level routes
 	 */
 
 	/**
@@ -70,4 +71,7 @@ public class DemoApplication {
 	 * https://github.com/ripu502-deloitte/bookMyshow
 	 */
 
+//	https://www.javadevjournal.com/spring-security/spring-security-roles-and-permissions/
+
+//	https://www.baeldung.com/role-and-privilege-for-spring-security-registration
 }

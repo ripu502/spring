@@ -5,8 +5,10 @@ import com.demo.demo.dto.AppUserCreateRequest;
 import com.demo.demo.entity.AppUser;
 import com.demo.demo.service.AppUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("api/users")
 public class AppUserController {
 
+    @Autowired
     private AppUserService appUserService;
 
     @PostMapping("/wgth")
@@ -35,7 +38,7 @@ public class AppUserController {
         return new ResponseEntity<>("Added Role", HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<AppUser>> getAllAppUser()
     {
         List<AppUser> response = appUserService.getAllAppUsers();
