@@ -39,9 +39,9 @@ public class AppUserController {
         return new ResponseEntity<>("created", HttpStatus.CREATED);
     }
 
-    @PostMapping("/wgr")
-    public ResponseEntity<String> addRoleToAppUser(Principal principal, @RequestBody AddRoleRequest addRoleRequest){
-        appUserService.addRoleToUser(addRoleRequest.getRole(), principal.getName());
+    @PostMapping("/request/role/{id}")
+    public ResponseEntity<String> addRoleToAppUser(@PathVariable(name = "id") Long id){
+        appUserService.addRoleToUser(id);
         return new ResponseEntity<>("Added Role", HttpStatus.CREATED);
     }
 

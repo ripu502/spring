@@ -9,6 +9,9 @@ import com.demo.demo.entity.Role;
 import com.demo.demo.entity.RoleRequest;
 import com.demo.demo.service.AppUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +24,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 
-@RequiredArgsConstructor @Service
+@RequiredArgsConstructor @Service @Slf4j
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Autowired
@@ -32,10 +35,16 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    private static final Logger LOG = LogManager.getLogger(AppUserServiceImpl.class);
+
 
     @Override @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = appUserRepo.findUserByUsername(username);
+        LOG.info("LOG: Some info to be from slf4j");
+        LOG.debug("this is for the debug");
+        LOG.error("tthis is error");
+        log.error("this is final test 101");
         if(user == null)
         {
             throw new UsernameNotFoundException("NO USER OF THIS USER NAME FOUND");
@@ -70,8 +79,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     }
 
     @Override
-    public void addRoleToUser(String roleName, String username) {
-
+    public void addRoleToUser(Long id) {
+        RoleRequest roleRequest = roleRequestRepo.findById(id).get();
+        AppUser user = appUserRepo.findUserByUsername(roleRequest.getUsername());
+        user.getRoleSet().add(roleRequest.getRole());
+        appUserRepo.save(user);
     }
 
     @Override

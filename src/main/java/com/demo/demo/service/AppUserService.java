@@ -12,7 +12,7 @@ public interface AppUserService{
 
     AppUser createUser(AppUserCreateRequest appUser);
 
-    void addRoleToUser(String roleName, String username);
+    void addRoleToUser(Long id);
 
     List<AppUser> getAllAppUsers();
 
