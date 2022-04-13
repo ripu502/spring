@@ -7,6 +7,7 @@ import com.demo.demo.entity.AppUser;
 import com.demo.demo.entity.Product;
 import com.demo.demo.entity.Role;
 import com.demo.demo.entity.RoleRequest;
+import com.demo.demo.exception.BadRequestException;
 import com.demo.demo.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,8 +58,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
                         .add(new SimpleGrantedAuthority(role.toString())
                         ));
 
-        User springUser = new User(user.getUsername(), user.getPassword(), authorities);
-        return springUser;
+        return new User(user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override
@@ -88,8 +88,8 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public List<AppUser> getAllAppUsers() {
-        List<AppUser> users = appUserRepo.findAll();
-        return users;
+        //        throw new BadRequestException("THIS IS JUST for the test");
+        return appUserRepo.findAll();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.demo.demo.security;
 
 import com.demo.demo.dto.LoginDTO;
+import com.demo.demo.exception.BadRequestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +32,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws  AuthenticationException{
         try
         {
             String in = request.getReader().lines().reduce("", String::concat);
@@ -41,7 +42,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
-            e.printStackTrace();
+            Map<String, String> error = new HashMap<>();
+            error.put("message", "Bad Request, or illegal Request");
+            response.setContentType(APPLICATION_JSON_VALUE);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            try {
+                new ObjectMapper().writeValue(response.getOutputStream(),error);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
         }
         return null;
     }
@@ -62,7 +72,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        System.out.printf(failed.getMessage());
+        System.out.print(failed.getMessage());
         super.unsuccessfulAuthentication(request, response, failed);
     }
 
