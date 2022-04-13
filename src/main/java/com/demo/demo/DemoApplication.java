@@ -36,13 +36,14 @@ public class DemoApplication {
 	 * 	3. All mapping- done REQUIRE revisit
 	 * 	4. DATABASE - Transaction, native Queries, Cache - done REQUIRE REVISIT
 	 * 	7. logging - done
-	 *
 	 * 	8. Global exception handling
+	 *
 	 * 	13 Unit testing and coverage
 	 * 	5. How to move to the microservice Architecture
 	 * 	15. Making documentation if any code snippets
 	 * 	6. JWT with cookie, http only
 	 * 	14. how to make the heirercy level role like admin can access all the customer level routes
+	 * 	19. keyclock type authentication server.
 	 * 	12 Deploying with docker
 	 *
 	 * 	9. Emailing and otp handling
